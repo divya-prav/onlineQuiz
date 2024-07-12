@@ -8,7 +8,7 @@ export default function Homepage(){
         <>
         <h1>Welcome to Online Quiz</h1>
         <button onClick={()=>navigate('/quiz')}>Take a Quiz</button>
-        <button>Make a Quiz</button>
+        <button onClick={()=>navigate('/makequiz')}> Make a Quiz</button>
         </>
     )
 }

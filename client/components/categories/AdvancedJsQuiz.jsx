@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export default function AdvancedJsQuiz() {
   const [advjs, setAdvjs] = useState(null);
   const solution = [];
-  let result = 0;
+  let [result,setResult] = useState(null);
 
   useEffect(async () => {
     try {
@@ -17,18 +17,20 @@ export default function AdvancedJsQuiz() {
 
   function handleClick(){
     console.log(solution)
+    let count = 0
     for(let i=0;i<advjs.length;i++){
       if(advjs[i].answer === solution[i]){
-        result++;
+        count++;
       }
    }
-   console.log(result);
+   setResult(count)
   
   }
 
   return (
     <>
       <h1>Advanced Js Quiz</h1>
+      {result && <h1>{result}</h1>}
       {advjs &&
         advjs.map((ques,i) => {
           return (

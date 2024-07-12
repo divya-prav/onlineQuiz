@@ -133,6 +133,17 @@ app.get('/api/women',async(req,res)=>{
   });
   
 })
+
+app.post('/api/makeaquiz',async(req,res)=>{
+  let category = req.body.category; //html
+  let {data} = req.body
+  console.log('category----',category)
+  console.log('data----',data)
+  let collection = await db.collection(category);
+  let result = await collection.insertMany(data);
+  res.send(result).status(204);
+
+})
 // Error handling middleware
 app.use((error, req, res, next) => {
   console.error("SERVER ERROR: ", error);
