@@ -2,16 +2,16 @@ import { useState } from "react";
 
 export default function YourQuiz(props) {
   const [quiz, setQuiz] = useState(props.data);
-  const [category,setCategory] = useState(props.category)
+  //const [category,setCategory] = useState(props.category)
   const solution = [];
   let [result, setResult] = useState(null);
-
+  console.log(quiz)
 
   function handleClick() {
     console.log(solution);
     let count = 0;
-    for (let i = 0; i < html.length; i++) {
-      if (html[i].answer === solution[i]) {
+    for (let i = 0; i < quiz.length; i++) {
+      if (quiz[i].answer === solution[i]) {
         count++;
       }
     }
@@ -22,8 +22,8 @@ export default function YourQuiz(props) {
     <>
       <h1> Quiz</h1>
       {result && <h1>{result}</h1>}
-      {html &&
-        html.map((ques, i) => {
+      {quiz &&
+        quiz.map((ques, i) => {
           return (
             <div>
               <h2>{ques.question}</h2>
@@ -31,7 +31,7 @@ export default function YourQuiz(props) {
               <input
                 type="radio"
                 id="question1"
-                name={`html${i}`}
+                name={`quiz${i}`}
                 value="A"
                 onChange={(e) => (solution[i] = e.target.value)}
               />
@@ -40,7 +40,7 @@ export default function YourQuiz(props) {
               <input
                 type="radio"
                 id="question2"
-                name={`html${i}`}
+                name={`quiz${i}`}
                 value="B"
                 onChange={(e) => (solution[i] = e.target.value)}
               />
@@ -49,7 +49,7 @@ export default function YourQuiz(props) {
               <input
                 type="radio"
                 id="question3"
-                name={`html${i}`}
+                name={`quiz${i}`}
                 value="C"
                 onChange={(e) => (solution[i] = e.target.value)}
               />
@@ -58,7 +58,7 @@ export default function YourQuiz(props) {
               <input
                 type="radio"
                 id="question4"
-                name={`html${i}`}
+                name={`quiz${i}`}
                 value="D"
                 onChange={(e) => (solution[i] = e.target.value)}
               />

@@ -10,9 +10,9 @@ export default function HtmlQuiz(){
 
   useEffect(async () => {
     try {
-      const result = await fetch("http://localhost:8080/api/html");//20
+      const result = await fetch("http://localhost:8080/api/html");
       const res = await result.json();
-      //console.log(res[0].questions.options[0])
+      // console.log(res[0].questions)
       setHtml(res[0].questions);
     } catch (e) {
       console.error(e.message);

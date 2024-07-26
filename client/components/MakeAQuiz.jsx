@@ -12,10 +12,7 @@ const MakeAQuiz = () => {
   const [data, setData] = useState(
     Array(10).fill({
       question: "",
-      option1: "",
-      option2: "",
-      option3: "",
-      option4: "",
+      options: ["", "", "", ""],
       answer: "",
     })
   );
@@ -26,9 +23,19 @@ const MakeAQuiz = () => {
     );
     setData(updatedData);
   };
-  const display = (e) => {
-    e.preventDefault(); // Prevent form submission
-    console.log(data);
+
+  const handleOptionChange = (e, qIndex, oIndex) => {
+    const { value } = e.target;
+    const updatedData = data.map((item, i) => {
+      if (i === qIndex) {
+        const updatedOptions = item.options.map((option, j) =>
+          j === oIndex ? value : option
+        );
+        return { ...item, options: updatedOptions };
+      }
+      return item;
+    });
+    setData(updatedData);
   };
 
   async function handleSubmit(e) {
@@ -38,10 +45,10 @@ const MakeAQuiz = () => {
     data.forEach((item) => {
       if (
         item.question === "" ||
-        item.option1 === "" ||
-        item.option2 === "" ||
-        item.option3 === "" ||
-        item.option4 === "" ||
+        item.options[0] === "" ||
+        item.options[1] === "" ||
+        item.options[2] === "" ||
+        item.options[3] === "" ||
         item.answer === ""
       ) {
         setError("Please enter all the quiz");
@@ -65,12 +72,6 @@ const MakeAQuiz = () => {
       setResponse(true);
       setArray(postData);
     }
-  }
-
-  function handleQuiz() {
-    console.log("handle quiz clicked");
-
-    return <YourQuiz data={array} />;
   }
 
   return (
@@ -98,7 +99,7 @@ const MakeAQuiz = () => {
                 <option value="womenincs">Women In CS</option>
                 <option value="random">Other</option>
               </select>
-              {/* <input placeholder="Category" value={category} onChange={(e)=>setCategory(e.target.value)}/> */}
+
               {data.map((item, index) => (
                 <div key={index}>
                   <input
@@ -110,42 +111,19 @@ const MakeAQuiz = () => {
                     onChange={(e) => handleChange(e, index)}
                   />
                   <br />
-                  <input
-                    className="input"
-                    placeholder="Option 1"
-                    type="text"
-                    value={item.option1}
-                    name="option1"
-                    onChange={(e) => handleChange(e, index)}
-                  />
-                  <br />
-                  <input
-                    className="input"
-                    placeholder="Option 2"
-                    type="text"
-                    value={item.option2}
-                    name="option2"
-                    onChange={(e) => handleChange(e, index)}
-                  />
-                  <br />
-
-                  <input
-                    className="input"
-                    placeholder="Option 3"
-                    type="text"
-                    value={item.option3}
-                    name="option3"
-                    onChange={(e) => handleChange(e, index)}
-                  />
-                  <br />
-                  <input
-                    className="input"
-                    placeholder="Option 4"
-                    type="text"
-                    value={item.option4}
-                    name="option4"
-                    onChange={(e) => handleChange(e, index)}
-                  />
+                  {item.options.map((option, oIndex) => (
+                    <>
+                      <input
+                        key={oIndex}
+                        placeholder={`Option ${oIndex + 1}`}
+                        type="text"
+                        value={option}
+                        name={`option${oIndex}`}
+                        onChange={(e) => handleOptionChange(e, index, oIndex)}
+                      />
+                      <br />
+                    </>
+                  ))}
                   <br />
                   <input
                     className="input"

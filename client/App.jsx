@@ -13,7 +13,7 @@ import YourQuiz from "./components/categories/YourQuiz";
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="bg-gray-800">
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/quiz" element={<TakeAQuiz />} />
